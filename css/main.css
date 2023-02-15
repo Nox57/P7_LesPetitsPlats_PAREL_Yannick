@@ -1,0 +1,10 @@
+body {
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
