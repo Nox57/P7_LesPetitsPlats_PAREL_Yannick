@@ -1,0 +1,23 @@
+{
+  "name": "p7_lespetitsplats_parel_yannick",
+  "version": "1.0.0",
+  "description": "Projet 7 de la formation DAJR d'OpenClassrooms",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nox57/P7_LesPetitsPlats_PAREL_Yannick.git"
+  },
+  "author": "PAREL Yannick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nox57/P7_LesPetitsPlats_PAREL_Yannick/issues"
+  },
+  "homepage": "https://github.com/Nox57/P7_LesPetitsPlats_PAREL_Yannick#readme",
+  "devDependencies": {
+    "eslint": "^8.34.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
