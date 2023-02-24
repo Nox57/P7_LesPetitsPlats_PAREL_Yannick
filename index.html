@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
     <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato&family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f614a106f9.js" crossorigin="anonymous"></script>
     <title>Les Petits Plats</title>
   </head>
   <body>
@@ -18,9 +19,60 @@
     </header>
 
     <main>
+      <form>
+          <input type="text" name="search" id="search" placeholder="Rechercher une recette">
+          <label for="search"><span class="fa-solid fa-magnifying-glass"></span></label>
+      </form>
+
+      <section class="current-filters">
+      </section>
+
+      <section class="recipes-filters">
+        <div class="dropdown dropdown--ingredient">
+          <div class="dropdown__title">
+            <span class="dropdown__title-span">Ingrédients</span>
+            <div class="dropdown__title-icon">
+              <img src="assets/svg/expand.svg" alt="Agrandir">
+            </div>
+          </div>
+          <div class="dropdown__content">
+            <ul class="dropdown__list">
+            </ul>
+          </div>
+        </div>
+        <div class="dropdown dropdown--appliance">
+          <div class="dropdown__title">
+            <span class="dropdown__title-span">Appareils</span>
+            <div class="dropdown__title-icon">
+              <img src="assets/svg/expand.svg" alt="Agrandir">
+            </div>
+          </div>
+          <div class="dropdown__content">
+            <ul class="dropdown__list">
+            </ul>
+          </div>
+        </div>
+        <div class="dropdown dropdown--tool">
+          <div class="dropdown__title">
+            <span class="dropdown__title-span">Ustensiles</span>
+            <div class="dropdown__title-icon">
+              <img src="assets/svg/expand.svg" alt="Agrandir">
+            </div>
+          </div>
+          <div class="dropdown__content">
+            <ul class="dropdown__list">
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="recipes">
+      </section>
 
     </main>
 
+    <script src="data/recipes.js"></script>
+    <script src="scripts/dropdown.js"></script>
     <script src="scripts/index.js"></script>
   </body>
 </html>

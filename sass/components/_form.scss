@@ -1,0 +1,28 @@
+form {
+    margin-top: 20px;
+
+    input {
+        position: relative;
+        width: calc(100% - 50px);
+        height: 69px;
+        background-color: $inputColor;
+        border:0;
+        outline:0;
+        padding: 0px 25px;
+        border-radius: 5px;
+        font-size: 18px;
+
+        &::placeholder {
+            opacity: 0.25;
+        }
+    }
+
+    label span {
+        position: relative;
+        z-index: 2;
+        float: right;
+        margin-top: -50px;
+        margin-right: 20px;
+        font-size: 32px;
+    }
+}

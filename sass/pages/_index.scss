@@ -1,0 +1,199 @@
+.current-filters {
+    display: flex;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.recipes-filters {
+    display: flex;
+    flex-wrap: wrap;
+}
+  
+.dropdown {
+    position: relative;
+    border-radius: 5px;
+    margin-bottom: 25px;
+  
+    &__title {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        margin: 23px 0px 24px 15px;
+        width: 170px;
+        cursor: pointer;
+  
+        &-span {
+            margin-right: 10px;
+        }
+    }
+  
+    &__title-icon {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+  
+        img {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.2s ease-in-out;
+            transform: rotate(0deg);
+        }
+    }
+  
+    &__content {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
+        z-index: 1;
+        min-width: 200px;
+        padding: 16px;
+        border: 1px solid #ccc;
+    
+        &--is-visible {
+            display: block;
+        }
+    
+        &__list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+    
+            &__item {
+            margin-bottom: 8px;
+    
+                &--active {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+  
+    &--ingredient {
+        margin-right: 20px;
+        background-color: $ingredientColor;
+    }
+  
+    &--appliance {
+        margin-right: 20px;
+        background-color: $applianceColor;
+    }
+  
+    &--tool {
+        margin-right: 0;
+        background-color: $toolColor;
+    }
+  
+    &--is-visible {
+        &__content {
+            display: block;
+        }
+    
+        &__title-icon {
+            transform: translateY(-50%) rotate(180deg);
+    
+            img {
+                transform: rotate(180deg);
+            }
+        }
+    }
+  
+    .dropdown__title-icon.active img {
+      transform: rotate(180deg);
+    }
+}
+
+.recipes{
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 50px;
+    margin-bottom: 50px;
+
+    article { 
+        width: 380px;
+        height: 364px;
+        overflow: hidden;
+        background-color: $inputColor;
+        border-radius: 5px;
+
+        .recipe__banner {
+            height: 178px;
+            background-color: $bannerColor;
+        }
+
+        .title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 20px;
+
+            h2 {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+            }
+
+            span {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+
+                i {
+                    font-weight: 500;
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 7px;
+                }
+            }
+        }
+
+        .recipe__container {
+            display: flex;
+            justify-content: space-between;
+            padding: 0px 20px;
+
+            .recipe__ingredients {
+                width: 170px;
+                height: 105px;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 12px;
+                overflow: auto;
+
+                ul, li {
+                    padding: 0;
+                    list-style-type: none;
+                }
+            }
+
+            .recipe__instructions {
+                width: 170px;
+                height: 109px;
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                overflow: auto;
+            }
+        }
+    }
+
+    &:after {
+        content: "";
+        width: 380px;
+        margin: 0px;
+        padding: 0px;
+        height: 0;
+        
+    }
+}
