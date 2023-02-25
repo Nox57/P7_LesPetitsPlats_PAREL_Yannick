@@ -58,10 +58,16 @@ class Ingredient {
 }
 
 const recipesDiv = document.querySelector('.recipes');
+const ingredientList = document.querySelector('.dropdown__list--ingredient');
+const appliancetList = document.querySelector('.dropdown__list--appliance');
+const ustensilList = document.querySelector('.dropdown__list--tool');
+const newRecipes = {list: []};
+const filterIngredients = [];
+const filterUstensiles = [];
+const filterAppliance = [];
 
 recipes.forEach((recipe) => {
-    // eslint-disable-next-line max-len
-    const newRecipe = new Recipe(
+    newRecipes.list.push(new Recipe(
         recipe.id,
         recipe.name,
         recipe.time,
@@ -69,6 +75,39 @@ recipes.forEach((recipe) => {
         recipe.appliance,
         recipe.description,
         recipe.ingredients,
-    );
-    recipesDiv.innerHTML += newRecipe.toHTML();
+    ));
+    // We add each different ingredient in an array
+    recipe.ingredients.forEach((ingredient) => {
+        // filtersIngredients.push(ingredient.ingredient.toLowerCase());
+        const ingredientName = ingredient.ingredient.toLowerCase();
+        if (!filterIngredients.includes(ingredientName)) {
+            filterIngredients.push(ingredientName);
+        }
+    });
+    // We add each different ustensil in an array
+    recipe.ustensils.forEach((ustensil) => {
+        // filtersIngredients.push(ingredient.ingredient.toLowerCase());
+        const ustensileName = ustensil.toLowerCase();
+        if (!filterUstensiles.includes(ustensileName)) {
+            filterUstensiles.push(ustensileName);
+        }
+    });
+    // We add each different appliance in an array
+    const applianceName = recipe.appliance.toLowerCase();
+    if (!filterAppliance.includes(applianceName)) {
+        filterAppliance.push(applianceName);
+    }
+
+    recipesDiv.insertAdjacentHTML('beforeend', newRecipes.list[newRecipes.list.length - 1].toHTML());
+});
+
+// We add each ingredient, appliance and ustensil in each dropdown
+filterIngredients.forEach((ingredient) => {
+    ingredientList.innerHTML += `<li class="dropdown__list__item">${ingredient}</li>`;
+});
+filterAppliance.forEach((appliance) => {
+    appliancetList.innerHTML += `<li class="dropdown__list--item">${appliance}</li>`;
+});
+filterUstensiles.forEach((ustensil) => {
+    ustensilList.innerHTML += `<li class="dropdown__list--item">${ustensil}</li>`;
 });
