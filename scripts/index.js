@@ -61,10 +61,14 @@ const recipesDiv = document.querySelector('.recipes');
 const ingredientList = document.querySelector('.dropdown__list--ingredient');
 const appliancetList = document.querySelector('.dropdown__list--appliance');
 const ustensilList = document.querySelector('.dropdown__list--ustensil');
+const currentFilters = document.querySelector('.current-filters');
 const newRecipes = {list: []};
 const filterIngredients = [];
+const currentFilteredIngredients = [];
 const filterUstensiles = [];
+const currentFilteredUstensiles = [];
 const filterAppliance = [];
+const currentFilteredAppliance = [];
 
 recipes.forEach((recipe) => {
     newRecipes.list.push(new Recipe(
@@ -103,13 +107,63 @@ recipes.forEach((recipe) => {
 
 // We add each ingredient, appliance and ustensil in each dropdown
 filterIngredients.forEach((ingredient) => {
-    ingredientList.innerHTML += `<li class="dropdown__list__item">${ingredient}</li>`;
+    const newLi = document.createElement('li');
+    newLi.setAttribute('class', 'dropdown__list__item');
+    newLi.innerText = ingredient;
+    newLi.addEventListener('click', function(e) {
+        currentFilteredIngredients.push(ingredient);
+        const spanFilter = document.createElement('span');
+        const closeImg = document.createElement('img');
+        spanFilter.classList.add('current-filters__span', 'current-filters__span--ingredient');
+        spanFilter.innerText = ingredient;
+        closeImg.setAttribute('src', 'assets/svg/close.svg');
+        closeImg.addEventListener('click', function(e) {
+            spanFilter.remove();
+        });
+        spanFilter.appendChild(closeImg);
+        currentFilters.appendChild(spanFilter);
+    });
+    ingredientList.appendChild(newLi);
 });
+
 filterAppliance.forEach((appliance) => {
-    appliancetList.innerHTML += `<li class="dropdown__list--item">${appliance}</li>`;
+    const newLi = document.createElement('li');
+    newLi.setAttribute('class', 'dropdown__list__item');
+    newLi.innerText = appliance;
+    newLi.addEventListener('click', function(e) {
+        currentFilteredAppliance.push(appliance);
+        const spanFilter = document.createElement('span');
+        const closeImg = document.createElement('img');
+        spanFilter.classList.add('current-filters__span', 'current-filters__span--appliance');
+        spanFilter.innerText = appliance;
+        closeImg.setAttribute('src', 'assets/svg/close.svg');
+        closeImg.addEventListener('click', function(e) {
+            spanFilter.remove();
+        });
+        spanFilter.appendChild(closeImg);
+        currentFilters.appendChild(spanFilter);
+    });
+    appliancetList.appendChild(newLi);
 });
+
 filterUstensiles.forEach((ustensil) => {
-    ustensilList.innerHTML += `<li class="dropdown__list--item">${ustensil}</li>`;
+    const newLi = document.createElement('li');
+    newLi.setAttribute('class', 'dropdown__list__item');
+    newLi.innerText = ustensil;
+    newLi.addEventListener('click', function(e) {
+        currentFilteredUstensiles.push(ustensil);
+        const spanFilter = document.createElement('span');
+        const closeImg = document.createElement('img');
+        spanFilter.classList.add('current-filters__span', 'current-filters__span--ustensil');
+        spanFilter.innerText = ustensil;
+        closeImg.setAttribute('src', 'assets/svg/close.svg');
+        closeImg.addEventListener('click', function(e) {
+            spanFilter.remove();
+        });
+        spanFilter.appendChild(closeImg);
+        currentFilters.appendChild(spanFilter);
+    });
+    ustensilList.appendChild(newLi);
 });
 
 const inputSearch = document.getElementById('search');

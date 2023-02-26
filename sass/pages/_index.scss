@@ -2,6 +2,32 @@
     display: flex;
     margin-top: 25px;
     margin-bottom: 15px;
+
+    &__span {
+
+        margin-right: 20px;
+        border-radius: 5px;
+        padding: 10px 20px;
+        color: white;
+
+        img {
+            cursor: pointer;
+            vertical-align: middle;
+            margin-left: 13px;
+        }
+
+        &--ingredient {
+            background-color: $ingredientColor;
+        }
+
+        &--appliance {
+            background-color: $applianceColor;
+        }
+
+        &--ustensil {
+            background-color: $toolColor;
+        }
+    }
 }
 
 .recipes-filters {
@@ -57,14 +83,25 @@
         min-width: 200px;
 
         &--is-visible {
-            display: block;
+            display: flex;
         }
+    }
+
+    ul {
+        flex-wrap: wrap;
+        display: flex;
+    }
+
+    ul li {
+        flex: 1 0 33%;
     }
 
     &__list {
         list-style: none;
         margin: 0;
-        padding: 0;
+        padding: 20px;
+        width: 600px;
+        color: white;
 
         &--ingredient {
             margin-right: 20px;
@@ -82,7 +119,8 @@
         }
 
         &__item {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
 
             &--active {
                 font-weight: bold;
@@ -107,7 +145,7 @@
   
     &--is-visible {
         &__content {
-            display: block;
+            display: flex;
         }
 
         &__title-icon {

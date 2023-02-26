@@ -41,6 +41,26 @@ header {
   margin-top: 25px;
   margin-bottom: 15px;
 }
+.current-filters__span {
+  margin-right: 20px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: white;
+}
+.current-filters__span img {
+  cursor: pointer;
+  vertical-align: middle;
+  margin-left: 13px;
+}
+.current-filters__span--ingredient {
+  background-color: #3282F7;
+}
+.current-filters__span--appliance {
+  background-color: #68D9A4;
+}
+.current-filters__span--ustensil {
+  background-color: #ED6454;
+}
 
 .recipes-filters {
   display: flex;
@@ -91,12 +111,21 @@ header {
   min-width: 200px;
 }
 .dropdown__content--is-visible {
-  display: block;
+  display: flex;
+}
+.dropdown ul {
+  flex-wrap: wrap;
+  display: flex;
+}
+.dropdown ul li {
+  flex: 1 0 33%;
 }
 .dropdown__list {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 20px;
+  width: 600px;
+  color: white;
 }
 .dropdown__list--ingredient {
   margin-right: 20px;
@@ -111,7 +140,8 @@ header {
   background-color: #ED6454;
 }
 .dropdown__list__item {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 .dropdown__list__item--active {
   font-weight: bold;
@@ -129,7 +159,7 @@ header {
   background-color: #ED6454;
 }
 .dropdown--is-visible__content {
-  display: block;
+  display: flex;
 }
 .dropdown--is-visible__title-icon {
   transform: translateY(-50%) rotate(180deg);
