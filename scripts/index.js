@@ -60,7 +60,7 @@ class Ingredient {
 const recipesDiv = document.querySelector('.recipes');
 const ingredientList = document.querySelector('.dropdown__list--ingredient');
 const appliancetList = document.querySelector('.dropdown__list--appliance');
-const ustensilList = document.querySelector('.dropdown__list--tool');
+const ustensilList = document.querySelector('.dropdown__list--ustensil');
 const newRecipes = {list: []};
 const filterIngredients = [];
 const filterUstensiles = [];
@@ -110,4 +110,34 @@ filterAppliance.forEach((appliance) => {
 });
 filterUstensiles.forEach((ustensil) => {
     ustensilList.innerHTML += `<li class="dropdown__list--item">${ustensil}</li>`;
+});
+
+const inputSearch = document.getElementById('search');
+const formSearch = document.getElementById('formSearch');
+
+formSearch.addEventListener('submit', function(e) {
+    e.preventDefault();
+});
+
+inputSearch.addEventListener('input', function(e) {
+    const searchTerm = inputSearch.value.toLowerCase();
+    if (searchTerm.length >= 3) {
+        recipesDiv.innerHTML = '';
+        newRecipes.list.forEach((recipe) => {
+            // eslint-disable-next-line max-len
+            if (recipe.name.toLowerCase().includes(searchTerm) || recipe.description.toLowerCase().includes(searchTerm)) {
+                recipesDiv.insertAdjacentHTML('beforeend', recipe.toHTML());
+            } else {
+                const ingredients = recipe.ingredients.map((ingredient) => ingredient.ingredient.toLowerCase());
+                if (ingredients.includes(searchTerm)) {
+                    recipesDiv.insertAdjacentHTML('beforeend', recipe.toHTML());
+                }
+            }
+        });
+    } else {
+        recipesDiv.innerHTML = '';
+        newRecipes.list.forEach((recipe) => {
+            recipesDiv.insertAdjacentHTML('beforeend', recipe.toHTML());
+        });
+    }
 });

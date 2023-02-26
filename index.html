@@ -19,7 +19,7 @@
     </header>
 
     <main>
-      <form>
+      <form id='formSearch'>
           <input type="text" name="search" id="search" placeholder="Rechercher une recette">
           <label for="search"><span class="fa-solid fa-magnifying-glass"></span></label>
       </form>
@@ -32,11 +32,11 @@
           <div class="dropdown__title">
             <span class="dropdown__title-span">Ingrédients</span>
             <div class="dropdown__title-icon">
-              <img src="assets/svg/expand.svg" alt="Agrandir">
+              <img class="dropdown__icon" src="assets/svg/expand.svg" alt="Agrandir">
             </div>
           </div>
           <div class="dropdown__content">
-            <ul class="dropdown__list--ingredient">
+            <ul class="dropdown__list dropdown__list--ingredient">
             </ul>
           </div>
         </div>
@@ -44,23 +44,23 @@
           <div class="dropdown__title">
             <span class="dropdown__title-span">Appareils</span>
             <div class="dropdown__title-icon">
-              <img src="assets/svg/expand.svg" alt="Agrandir">
+              <img class="dropdown__icon" src="assets/svg/expand.svg" alt="Agrandir">
             </div>
           </div>
           <div class="dropdown__content">
-            <ul class="dropdown__list--appliance">
+            <ul class="dropdown__list dropdown__list--appliance">
             </ul>
           </div>
         </div>
-        <div class="dropdown dropdown--tool">
+        <div class="dropdown dropdown--ustensil">
           <div class="dropdown__title">
             <span class="dropdown__title-span">Ustensiles</span>
             <div class="dropdown__title-icon">
-              <img src="assets/svg/expand.svg" alt="Agrandir">
+              <img class="dropdown__icon" src="assets/svg/expand.svg" alt="Agrandir">
             </div>
           </div>
           <div class="dropdown__content">
-            <ul class="dropdown__list--tool">
+            <ul class="dropdown__list dropdown__list--ustensil">
             </ul>
           </div>
         </div>

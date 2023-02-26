@@ -25,7 +25,7 @@
         width: 170px;
         cursor: pointer;
   
-        &-span {
+        &--span {
             margin-right: 10px;
         }
     }
@@ -55,24 +55,37 @@
         display: none;
         z-index: 1;
         min-width: 200px;
-        padding: 16px;
-        border: 1px solid #ccc;
-    
+
         &--is-visible {
             display: block;
         }
-    
-        &__list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-    
-            &__item {
+    }
+
+    &__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        &--ingredient {
+            margin-right: 20px;
+            background-color: $ingredientColor;
+        }
+
+        &--appliance {
+            margin-right: 20px;
+            background-color: $applianceColor;
+        }
+
+        &--ustensil {
+            margin-right: 0;
+            background-color: $toolColor;
+        }
+
+        &__item {
             margin-bottom: 8px;
-    
-                &--active {
-                    font-weight: bold;
-                }
+
+            &--active {
+                font-weight: bold;
             }
         }
     }
@@ -87,7 +100,7 @@
         background-color: $applianceColor;
     }
   
-    &--tool {
+    &--ustensil {
         margin-right: 0;
         background-color: $toolColor;
     }
@@ -96,18 +109,18 @@
         &__content {
             display: block;
         }
-    
+
         &__title-icon {
             transform: translateY(-50%) rotate(180deg);
-    
+
             img {
                 transform: rotate(180deg);
             }
         }
     }
   
-    .dropdown__title-icon.active img {
-      transform: rotate(180deg);
+    &__title-icon.active img {
+        transform: rotate(180deg);
     }
 }
 
@@ -194,6 +207,5 @@
         margin: 0px;
         padding: 0px;
         height: 0;
-        
     }
 }
