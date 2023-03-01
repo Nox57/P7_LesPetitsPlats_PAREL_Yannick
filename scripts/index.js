@@ -5,7 +5,7 @@ class Recipe {
         this.id = id;
         this.name = name;
         this.time = time;
-        this.ustensils = ustensils.map((ustensil) => ustensil.toLowerCase());
+        this.ustensils = ustensils;
         this.appliance = appliance;
         this.description = description;
         this.ingredients = ingredients.map((ingredient) => new Ingredient(ingredient));
@@ -13,24 +13,23 @@ class Recipe {
 
     // eslint-disable-next-line require-jsdoc
     toHTML() {
-        const html = `  <article>
-                            <div class="recipe__banner"></div>
-                            <div class="title-container">
-                                <h2 class="recipe__title">${this.name}</h2>
-                                <span class="recipe__time"><i class="fa-regular fa-clock"></i>${this.time} min</span>
-                            </div>
-                            <div class="recipe__container">
-                                <div class="recipe__ingredients">
-                                    <ul class="ingredients-list">
-                                        ${this.ingredients.map((ingredient) => ingredient.toHTML()).join('')}
-                                    </ul>
-                                </div>
-                                <div class="recipe__instructions">
-                                    <p>${this.description}</p>
-                                </div>
-                            </div>
-                        </article>`;
-        return html;
+        return `<article>
+                    <div class="recipe__banner"></div>
+                    <div class="title-container">
+                        <h2 class="recipe__title">${this.name}</h2>
+                        <span class="recipe__time"><i class="fa-regular fa-clock"></i>${this.time} min</span>
+                    </div>
+                    <div class="recipe__container">
+                        <div class="recipe__ingredients">
+                            <ul class="ingredients-list">
+                                ${this.ingredients.map((ingredient) => ingredient.toHTML()).join('')}
+                            </ul>
+                        </div>
+                        <div class="recipe__instructions">
+                            <p>${this.description}</p>
+                        </div>
+                    </div>
+                </article>`;
     }
 }
 
@@ -82,24 +81,24 @@ recipes.forEach((recipe) => {
     ));
     // We add each different ingredient in an array
     recipe.ingredients.forEach((ingredient) => {
-        // filtersIngredients.push(ingredient.ingredient.toLowerCase());
         const ingredientName = ingredient.ingredient.toLowerCase();
-        if (!filterIngredients.includes(ingredientName)) {
-            filterIngredients.push(ingredientName);
+        if (!filterIngredients.some((ingredient) => ingredient.toLowerCase() === ingredientName)) {
+            filterIngredients.push(ingredient.ingredient);
         }
     });
     // We add each different ustensil in an array
     recipe.ustensils.forEach((ustensil) => {
+        console.log(ustensil);
         // filtersIngredients.push(ingredient.ingredient.toLowerCase());
-        const ustensileName = ustensil.toLowerCase();
-        if (!filterUstensiles.includes(ustensileName)) {
-            filterUstensiles.push(ustensileName);
+        const ustensilName = ustensil.toLowerCase();
+        if (!filterUstensiles.some((ustensil) => ustensil.toLowerCase() === ustensilName)) {
+            filterUstensiles.push(ustensil);
         }
     });
     // We add each different appliance in an array
     const applianceName = recipe.appliance.toLowerCase();
-    if (!filterAppliance.includes(applianceName)) {
-        filterAppliance.push(applianceName);
+    if (!filterAppliance.some((appliance) => appliance.toLowerCase() === applianceName)) {
+        filterAppliance.push(recipe.appliance);
     }
 
     recipesDiv.insertAdjacentHTML('beforeend', newRecipes.list[newRecipes.list.length - 1].toHTML());
