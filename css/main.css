@@ -73,8 +73,9 @@ header {
 
 .dropdown {
   position: relative;
-  border-radius: 5px;
   margin-bottom: 25px;
+  height: 68px;
+  border-radius: 5px;
 }
 .dropdown__title {
   display: flex;
@@ -84,11 +85,27 @@ header {
   font-weight: 700;
   font-size: 18px;
   margin: 23px 0px 24px 15px;
-  width: 170px;
+  min-width: 170px;
+}
+.dropdown__title-span {
   cursor: pointer;
 }
-.dropdown__title--span {
-  margin-right: 10px;
+.dropdown__title-search {
+  display: none;
+  background-color: inherit;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  color: #FFFFFF;
+  border: none;
+  width: 621px;
+}
+.dropdown__title-search:focus {
+  outline: none;
+}
+.dropdown__title-search::placeholder {
+  opacity: 0.5;
+  color: #FFFFFF;
 }
 .dropdown__title-icon {
   position: absolute;
@@ -113,6 +130,7 @@ header {
   display: none;
   z-index: 1;
   min-width: 200px;
+  margin-top: -3px;
 }
 .dropdown__content--is-visible {
   display: flex;
@@ -120,6 +138,7 @@ header {
 .dropdown ul {
   flex-wrap: wrap;
   display: flex;
+  border-radius: 0px 0px 5px 5px;
 }
 .dropdown ul li {
   flex: 1 0 33%;
@@ -165,14 +184,15 @@ header {
 .dropdown--is-visible__content {
   display: flex;
 }
-.dropdown--is-visible__title-icon {
-  transform: translateY(-50%) rotate(180deg);
-}
-.dropdown--is-visible__title-icon img {
+.dropdown .active {
   transform: rotate(180deg);
+  transition: transform 0.3s ease-in-out;
 }
-.dropdown__title-icon.active img {
-  transform: rotate(180deg);
+.dropdown .display {
+  display: block;
+}
+.dropdown .display-none {
+  display: none;
 }
 
 .recipes {

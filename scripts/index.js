@@ -88,7 +88,6 @@ recipes.forEach((recipe) => {
     });
     // We add each different ustensil in an array
     recipe.ustensils.forEach((ustensil) => {
-        console.log(ustensil);
         // filtersIngredients.push(ingredient.ingredient.toLowerCase());
         const ustensilName = ustensil.toLowerCase();
         if (!filterUstensiles.some((ustensil) => ustensil.toLowerCase() === ustensilName)) {
@@ -130,7 +129,7 @@ function addFilterToList(filterList, currentFilteredList, filterType) {
             ingredientList.appendChild(newLi);
         } else if (filterType === 'appliance') {
             applianceList.appendChild(newLi);
-        } else {
+        } else if (filterType === 'ustensil') {
             ustensilList.appendChild(newLi);
         }
     });

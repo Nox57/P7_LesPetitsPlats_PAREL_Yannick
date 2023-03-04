@@ -41,8 +41,9 @@
   
 .dropdown {
     position: relative;
-    border-radius: 5px;
     margin-bottom: 25px;
+    height: 68px;
+    border-radius: 5px;
   
     &__title {
         display: flex;
@@ -52,11 +53,30 @@
         font-weight: 700;
         font-size: 18px;
         margin: 23px 0px 24px 15px;
-        width: 170px;
-        cursor: pointer;
+        min-width: 170px;
   
-        &--span {
-            margin-right: 10px;
+        &-span {
+            cursor: pointer;
+        }
+
+        &-search {
+            display: none;
+            background-color: inherit;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 18px;
+            color: #FFFFFF;
+            border: none;
+            width: 621px;
+
+            &:focus {
+                outline: none;
+            }
+            
+            &::placeholder {
+                opacity: 0.5;
+                color: #FFFFFF;
+            }
         }
     }
   
@@ -85,6 +105,7 @@
         display: none;
         z-index: 1;
         min-width: 200px;
+        margin-top: -3px;
 
         &--is-visible {
             display: flex;
@@ -94,6 +115,7 @@
     ul {
         flex-wrap: wrap;
         display: flex;
+        border-radius: 0px 0px 5px 5px;
     }
 
     ul li {
@@ -151,22 +173,24 @@
         &__content {
             display: flex;
         }
-
-        &__title-icon {
-            transform: translateY(-50%) rotate(180deg);
-
-            img {
-                transform: rotate(180deg);
-            }
-        }
     }
   
-    &__title-icon.active img {
+    .active {
         transform: rotate(180deg);
+        transition: transform 0.3s ease-in-out;
     }
+
+    .display {
+        display: block;
+    }
+
+    .display-none {
+        display: none;
+    }
+
 }
 
-.recipes{
+.recipes {
 
     display: flex;
     flex-wrap: wrap;
