@@ -88,6 +88,7 @@ header {
   min-width: 170px;
 }
 .dropdown__title-span {
+  letter-spacing: 0.5px;
   cursor: pointer;
 }
 .dropdown__title-search {
@@ -99,6 +100,7 @@ header {
   color: #FFFFFF;
   border: none;
   width: 621px;
+  letter-spacing: 0.5px;
 }
 .dropdown__title-search:focus {
   outline: none;

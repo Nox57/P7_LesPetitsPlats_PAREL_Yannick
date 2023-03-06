@@ -121,6 +121,10 @@ function addFilterToList(filterList, currentFilteredList, filterType) {
             closeImg.addEventListener('click', function(e) {
                 spanFilter.remove();
                 newLi.style.display = 'block';
+                const index = currentFilteredList.indexOf(filter);
+                if (index > -1) {
+                    currentFilteredList.splice(index, 1);
+                }
             });
             spanFilter.appendChild(closeImg);
             currentFilters.appendChild(spanFilter);
@@ -149,23 +153,35 @@ formSearch.addEventListener('submit', function(e) {
 
 inputSearch.addEventListener('input', function(e) {
     const searchTerm = inputSearch.value.toLowerCase();
+    const filteredRecipes = filterRecipes(searchTerm);
+    renderRecipes(filteredRecipes);
+});
+
+// eslint-disable-next-line require-jsdoc
+function filterRecipes(searchTerm) {
+    const filteredRecipes = [];
     if (searchTerm.length >= 3) {
-        recipesDiv.innerHTML = '';
         newRecipes.list.forEach((recipe) => {
             // eslint-disable-next-line max-len
             if (recipe.name.toLowerCase().includes(searchTerm) || recipe.description.toLowerCase().includes(searchTerm)) {
-                recipesDiv.insertAdjacentHTML('beforeend', recipe.toHTML());
+                filteredRecipes.push(recipe);
             } else {
                 const ingredients = recipe.ingredients.map((ingredient) => ingredient.ingredient.toLowerCase());
                 if (ingredients.includes(searchTerm)) {
-                    recipesDiv.insertAdjacentHTML('beforeend', recipe.toHTML());
+                    filteredRecipes.push(recipe);
                 }
             }
         });
     } else {
-        recipesDiv.innerHTML = '';
-        newRecipes.list.forEach((recipe) => {
-            recipesDiv.insertAdjacentHTML('beforeend', recipe.toHTML());
-        });
+        filteredRecipes.push(...newRecipes.list);
     }
-});
+    return filteredRecipes;
+}
+
+// eslint-disable-next-line require-jsdoc
+function renderRecipes(recipes) {
+    recipesDiv.innerHTML = '';
+    recipes.forEach((recipe) => {
+        recipesDiv.insertAdjacentHTML('beforeend', recipe.toHTML());
+    });
+}
