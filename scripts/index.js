@@ -68,40 +68,8 @@ const filterUstensiles = [];
 const currentFilteredUstensiles = [];
 const filterAppliance = [];
 const currentFilteredAppliance = [];
-
-recipes.forEach((recipe) => {
-    newRecipes.list.push(new Recipe(
-        recipe.id,
-        recipe.name,
-        recipe.time,
-        recipe.ustensils,
-        recipe.appliance,
-        recipe.description,
-        recipe.ingredients,
-    ));
-    // We add each different ingredient in an array
-    recipe.ingredients.forEach((ingredient) => {
-        const ingredientName = ingredient.ingredient.toLowerCase();
-        if (!filterIngredients.some((ingredient) => ingredient.toLowerCase() === ingredientName)) {
-            filterIngredients.push(ingredient.ingredient);
-        }
-    });
-    // We add each different ustensil in an array
-    recipe.ustensils.forEach((ustensil) => {
-        // filtersIngredients.push(ingredient.ingredient.toLowerCase());
-        const ustensilName = ustensil.toLowerCase();
-        if (!filterUstensiles.some((ustensil) => ustensil.toLowerCase() === ustensilName)) {
-            filterUstensiles.push(ustensil);
-        }
-    });
-    // We add each different appliance in an array
-    const applianceName = recipe.appliance.toLowerCase();
-    if (!filterAppliance.some((appliance) => appliance.toLowerCase() === applianceName)) {
-        filterAppliance.push(recipe.appliance);
-    }
-
-    recipesDiv.insertAdjacentHTML('beforeend', newRecipes.list[newRecipes.list.length - 1].toHTML());
-});
+const inputSearch = document.getElementById('search');
+const formSearch = document.getElementById('formSearch');
 
 // We add each ingredient, appliance and ustensil in each dropdown
 // eslint-disable-next-line require-jsdoc
@@ -115,7 +83,7 @@ function addFilterToList(filterList, currentFilteredList, filterType) {
             currentFilteredList.push(filter);
             const spanFilter = document.createElement('span');
             const closeImg = document.createElement('img');
-            spanFilter.classList.add('current-filters__span', `current-filters__span--${filterType}`);
+            spanFilter.classList.add('current-filters__span', `current-filters__span--${filterType.id}`);
             spanFilter.innerText = filter;
             closeImg.setAttribute('src', 'assets/svg/close.svg');
             closeImg.addEventListener('click', function(e) {
@@ -129,23 +97,9 @@ function addFilterToList(filterList, currentFilteredList, filterType) {
             spanFilter.appendChild(closeImg);
             currentFilters.appendChild(spanFilter);
         });
-        if (filterType === 'ingredient') {
-            ingredientList.appendChild(newLi);
-        } else if (filterType === 'appliance') {
-            applianceList.appendChild(newLi);
-        } else if (filterType === 'ustensil') {
-            ustensilList.appendChild(newLi);
-        }
+        filterType.appendChild(newLi);
     });
 }
-
-// Adding filters to dropdown
-addFilterToList(filterIngredients, currentFilteredIngredients, 'ingredient');
-addFilterToList(filterAppliance, currentFilteredAppliance, 'appliance');
-addFilterToList(filterUstensiles, currentFilteredUstensiles, 'ustensil');
-
-const inputSearch = document.getElementById('search');
-const formSearch = document.getElementById('formSearch');
 
 formSearch.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -204,11 +158,10 @@ function renderRecipes(recipes) {
 }
 
 // eslint-disable-next-line require-jsdoc
-function searchDropdownList(inputId, listClass) {
+function searchDropdownList(inputId, list) {
     const inputSearch = document.getElementById(inputId);
     inputSearch.addEventListener('input', (event) => {
         const searchTerm = event.target.value.toLowerCase();
-        const list = document.querySelector(`.${listClass}`);
         const items = list.querySelectorAll('.dropdown__list__item');
         items.forEach((item) => {
             const itemName = item.innerText.toLowerCase();
@@ -221,6 +174,51 @@ function searchDropdownList(inputId, listClass) {
     });
 }
 
-searchDropdownList('search-ingredient', 'dropdown__list--ingredient');
-searchDropdownList('search-appliance', 'dropdown__list--appliance');
-searchDropdownList('search-ustensil', 'dropdown__list--ustensil');
+// eslint-disable-next-line require-jsdoc
+function init() {
+    // We process recipes from recipes.js
+    recipes.forEach((recipe) => {
+        newRecipes.list.push(new Recipe(
+            recipe.id,
+            recipe.name,
+            recipe.time,
+            recipe.ustensils,
+            recipe.appliance,
+            recipe.description,
+            recipe.ingredients,
+        ));
+        // We add each different ingredient in an array
+        recipe.ingredients.forEach((ingredient) => {
+            const ingredientName = ingredient.ingredient.toLowerCase();
+            if (!filterIngredients.some((ingredient) => ingredient.toLowerCase() === ingredientName)) {
+                filterIngredients.push(ingredient.ingredient);
+            }
+        });
+        // We add each different ustensil in an array
+        recipe.ustensils.forEach((ustensil) => {
+            // filtersIngredients.push(ingredient.ingredient.toLowerCase());
+            const ustensilName = ustensil.toLowerCase();
+            if (!filterUstensiles.some((ustensil) => ustensil.toLowerCase() === ustensilName)) {
+                filterUstensiles.push(ustensil);
+            }
+        });
+        // We add each different appliance in an array
+        const applianceName = recipe.appliance.toLowerCase();
+        if (!filterAppliance.some((appliance) => appliance.toLowerCase() === applianceName)) {
+            filterAppliance.push(recipe.appliance);
+        }
+
+        recipesDiv.insertAdjacentHTML('beforeend', newRecipes.list[newRecipes.list.length - 1].toHTML());
+    });
+
+    // We add each filters in each list
+    addFilterToList(filterIngredients, currentFilteredIngredients, ingredientList);
+    addFilterToList(filterAppliance, currentFilteredAppliance, applianceList);
+    addFilterToList(filterUstensiles, currentFilteredUstensiles, ustensilList);
+    // We handle each dropdown
+    searchDropdownList('search-ingredient', ingredientList);
+    searchDropdownList('search-appliance', applianceList);
+    searchDropdownList('search-ustensil', ustensilList);
+}
+
+init();
