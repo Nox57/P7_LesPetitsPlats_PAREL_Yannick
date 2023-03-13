@@ -161,7 +161,12 @@ inputSearch.addEventListener('input', function(e) {
     }
 });
 
-// eslint-disable-next-line require-jsdoc
+/**
+ * Filter recipes by term.
+ * @param {string} searchTerm The search term.
+ * @param {Array} recipes List of recipes.
+ * @return {Array} List of recipes filtered by term.
+ */
 function filterRecipes(searchTerm, recipes) {
     const filteredRecipes = [];
 
@@ -198,47 +203,24 @@ function renderRecipes(recipes) {
     });
 }
 
-const inputSearchIngredient = document.getElementById('search-ingredient');
-inputSearchIngredient.addEventListener('input', (event) => {
-    const searchTerm = event.target.value.toLowerCase();
-    const ingredientList = document.querySelector('.dropdown__list--ingredient');
-    const ingredientItems = ingredientList.querySelectorAll('.dropdown__list__item');
-    ingredientItems.forEach((item) => {
-        const itemName = item.innerText.toLowerCase();
-        if (itemName.includes(searchTerm)) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
+// eslint-disable-next-line require-jsdoc
+function searchDropdownList(inputId, listClass) {
+    const inputSearch = document.getElementById(inputId);
+    inputSearch.addEventListener('input', (event) => {
+        const searchTerm = event.target.value.toLowerCase();
+        const list = document.querySelector(`.${listClass}`);
+        const items = list.querySelectorAll('.dropdown__list__item');
+        items.forEach((item) => {
+            const itemName = item.innerText.toLowerCase();
+            if (itemName.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
     });
-});
+}
 
-const inputSearchAppliance = document.getElementById('search-appliance');
-inputSearchAppliance.addEventListener('input', (event) => {
-    const searchTerm = event.target.value.toLowerCase();
-    const ingredientList = document.querySelector('.dropdown__list--appliance');
-    const ingredientItems = ingredientList.querySelectorAll('.dropdown__list__item');
-    ingredientItems.forEach((item) => {
-        const itemName = item.innerText.toLowerCase();
-        if (itemName.includes(searchTerm)) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-});
-
-const inputSearchUstensil = document.getElementById('search-ustensil');
-inputSearchUstensil.addEventListener('input', (event) => {
-    const searchTerm = event.target.value.toLowerCase();
-    const ingredientList = document.querySelector('.dropdown__list--ustensil');
-    const ingredientItems = ingredientList.querySelectorAll('.dropdown__list__item');
-    ingredientItems.forEach((item) => {
-        const itemName = item.innerText.toLowerCase();
-        if (itemName.includes(searchTerm)) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-});
+searchDropdownList('search-ingredient', 'dropdown__list--ingredient');
+searchDropdownList('search-appliance', 'dropdown__list--appliance');
+searchDropdownList('search-ustensil', 'dropdown__list--ustensil');
