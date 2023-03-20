@@ -38,14 +38,44 @@ function addItemToDropdown(filterList, currentFilteredList, filterType) {
                 if (index > -1) {
                     currentFilteredList.splice(index, 1);
                 }
-                displayRecipes(filterRecipesByTerm(filterRecipesByTags(newRecipes.list), inputSearch.value));
+                const filteredRecipes = filterRecipesByTerm(filterRecipesByTags(newRecipes.list), inputSearch.value);
+                updateDropdowns(filteredRecipes);
+                displayRecipes(filteredRecipes);
             });
             spanFilter.appendChild(closeImg);
             currentFilters.appendChild(spanFilter);
-            displayRecipes(filterRecipesByTerm(filterRecipesByTags(newRecipes.list), inputSearch.value));
+            const filteredRecipes = filterRecipesByTerm(filterRecipesByTags(newRecipes.list), inputSearch.value);
+            updateDropdowns(filteredRecipes);
+            displayRecipes(filteredRecipes);
         });
         filterType.appendChild(newLi);
     });
+}
+
+// eslint-disable-next-line require-jsdoc
+function updateDropdowns(recipes) {
+    // We get all the ingredients, appliances and utensils from the recipes
+    const {ingredients, appliances, ustensiles} = recipes.reduce((acc, recipe) => {
+        recipe.ingredients.forEach((ingredient) => acc.ingredients.add(ingredient.ingredient));
+        acc.appliances.add(recipe.appliance);
+        recipe.ustensils.forEach((utensil) => acc.utensils.add(utensil));
+        return acc;
+    }, {ingredients: new Set(), appliances: new Set(), utensils: new Set()});
+
+    // We filter uniqueIngredients, uniqueAppliances and uniqueUtensils
+    const uniqueIngredients = [...ingredients].filter((ingredient) => !currentFilteredIngredients.includes(ingredient));
+    const uniqueAppliances = [...appliances].filter((appliance) => !currentFilteredAppliance.includes(appliance));
+    const uniqueUtensils = [...ustensiles].filter((utensil) => !currentFilteredUstensiles.includes(utensil));
+
+    // Clear dropdowns
+    ingredientList.innerHTML = '';
+    applianceList.innerHTML = '';
+    ustensilList.innerHTML = '';
+
+    // We add the remaining items in each dropdown
+    addItemToDropdown(uniqueIngredients, currentFilteredIngredients, ingredientList);
+    addItemToDropdown(uniqueAppliances, currentFilteredAppliance, applianceList);
+    addItemToDropdown(uniqueUtensils, currentFilteredUstensiles, ustensilList);
 }
 
 /**
@@ -212,9 +242,13 @@ function init() {
     inputSearch.addEventListener('input', function(e) {
         const searchTerm = inputSearch.value.trim().toLowerCase();
         if (searchTerm.length >= 3) {
-            displayRecipes(filterRecipesByTerm(filterRecipesByTags(newRecipes.list), searchTerm));
+            const filteredRecipes = filterRecipesByTerm(filterRecipesByTags(newRecipes.list), searchTerm);
+            updateDropdowns(filteredRecipes);
+            displayRecipes(filteredRecipes);
         } else {
-            displayRecipes(filterRecipesByTerm(filterRecipesByTags(newRecipes.list)));
+            const filteredRecipes = filterRecipesByTerm(filterRecipesByTags(newRecipes.list));
+            updateDropdowns(filteredRecipes);
+            displayRecipes(filteredRecipes);
         }
     });
 }
