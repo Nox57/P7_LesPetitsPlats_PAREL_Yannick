@@ -164,6 +164,9 @@ header {
   margin-right: 0;
   background-color: #ED6454;
 }
+.dropdown__list--ustensil li:first-letter {
+  text-transform: uppercase;
+}
 .dropdown__list__item {
   margin-bottom: 10px;
   cursor: pointer;
@@ -269,4 +272,9 @@ header {
   margin: 0px;
   padding: 0px;
   height: 0;
+}
+.recipes .no_recipe {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
 }

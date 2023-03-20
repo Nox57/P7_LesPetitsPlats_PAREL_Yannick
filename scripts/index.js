@@ -166,10 +166,15 @@ function filterRecipesByAppliances(recipes, filters) {
 
 // eslint-disable-next-line require-jsdoc
 function displayRecipes(recipes) {
-    recipesDiv.innerHTML = '';
-    recipes.forEach((recipe) => {
-        recipesDiv.insertAdjacentHTML('beforeend', recipe.toHTML());
-    });
+    console.log(recipes);
+    if (recipes.length === 0) {
+        recipesDiv.innerHTML = '<div class="no_recipe">Aucune recette ne correspond à votre recherche ;(</div>';
+    } else {
+        recipesDiv.innerHTML = '';
+        recipes.forEach((recipe) => {
+            recipesDiv.insertAdjacentHTML('beforeend', recipe.toHTML());
+        });
+    }
 }
 
 // eslint-disable-next-line require-jsdoc

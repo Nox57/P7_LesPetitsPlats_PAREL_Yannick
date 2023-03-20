@@ -146,6 +146,10 @@
             background-color: $toolColor;
         }
 
+        &--ustensil li:first-letter {
+            text-transform: uppercase;
+        }
+
         &__item {
             margin-bottom: 10px;
             cursor: pointer;
@@ -275,5 +279,11 @@
         margin: 0px;
         padding: 0px;
         height: 0;
+    }
+
+    .no_recipe {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
     }
 }
