@@ -38,9 +38,11 @@ function addItemToDropdown(filterList, currentFilteredList, filterType) {
                 if (index > -1) {
                     currentFilteredList.splice(index, 1);
                 }
+                displayRecipes(filterRecipesByTerm(filterRecipesByTags(newRecipes.list), inputSearch.value));
             });
             spanFilter.appendChild(closeImg);
             currentFilters.appendChild(spanFilter);
+            displayRecipes(filterRecipesByTerm(filterRecipesByTags(newRecipes.list), inputSearch.value));
         });
         filterType.appendChild(newLi);
     });
@@ -48,16 +50,16 @@ function addItemToDropdown(filterList, currentFilteredList, filterType) {
 
 /**
  * Filter recipes by term.
- * @param {string} searchTerm The search term.
  * @param {Array} recipes List of recipes.
+ * @param {string} searchTerm The search term.
  * @return {Array} List of recipes filtered by term.
  */
-function filterRecipes(searchTerm, recipes) {
+function filterRecipesByTerm(recipes, searchTerm = '') {
     const filteredRecipes = [];
 
     for (let i = 0; i < recipes.length; i++) {
         const recipe = recipes[i];
-
+        console.log(recipe);
         if (recipe.name.toLowerCase().includes(searchTerm)) {
             filteredRecipes.push(recipe);
             continue;
@@ -80,8 +82,60 @@ function filterRecipes(searchTerm, recipes) {
     return filteredRecipes;
 }
 
+// Filter recipes by tags
 // eslint-disable-next-line require-jsdoc
-function renderRecipes(recipes) {
+function filterRecipesByTags(recipes) {
+    let filteredRecipes = recipes;
+
+    if (currentFilteredIngredients.length > 0) {
+        filteredRecipes = filterRecipesByIngredients(filteredRecipes, currentFilteredIngredients);
+    }
+
+    if (currentFilteredUstensiles.length > 0) {
+        filteredRecipes = filterRecipesByUstensiles(filteredRecipes, currentFilteredUstensiles);
+    }
+
+    if (currentFilteredAppliance.length > 0) {
+        filteredRecipes = filterRecipesByAppliances(filteredRecipes, currentFilteredAppliance);
+    }
+
+    console.log(filteredRecipes);
+    return filteredRecipes;
+}
+
+// eslint-disable-next-line require-jsdoc
+function filterRecipesByIngredients(recipes, filters) {
+    return recipes.filter((recipe) =>
+        filters.every((filter) =>
+            recipe.ingredients.some((ingredient) =>
+                ingredient.ingredient.toLowerCase().includes(filter.toLowerCase()),
+            ),
+        ),
+    );
+}
+
+// eslint-disable-next-line require-jsdoc
+function filterRecipesByUstensiles(recipes, filters) {
+    return recipes.filter((recipe) =>
+        filters.every((filter) =>
+            recipe.ustensils.some((ustensil) =>
+                ustensil.toLowerCase().includes(filter.toLowerCase()),
+            ),
+        ),
+    );
+}
+
+// eslint-disable-next-line require-jsdoc
+function filterRecipesByAppliances(recipes, filters) {
+    return recipes.filter((recipe) =>
+        filters.every((filter) =>
+            recipe.appliance.toLowerCase().includes(filter.toLowerCase()),
+        ),
+    );
+}
+
+// eslint-disable-next-line require-jsdoc
+function displayRecipes(recipes) {
     recipesDiv.innerHTML = '';
     recipes.forEach((recipe) => {
         recipesDiv.insertAdjacentHTML('beforeend', recipe.toHTML());
@@ -158,10 +212,9 @@ function init() {
     inputSearch.addEventListener('input', function(e) {
         const searchTerm = inputSearch.value.trim().toLowerCase();
         if (searchTerm.length >= 3) {
-            const filteredRecipes = filterRecipes(searchTerm, newRecipes.list);
-            renderRecipes(filteredRecipes);
+            displayRecipes(filterRecipesByTerm(filterRecipesByTags(newRecipes.list), searchTerm));
         } else {
-            renderRecipes(newRecipes.list);
+            displayRecipes(filterRecipesByTerm(filterRecipesByTags(newRecipes.list)));
         }
     });
 }
