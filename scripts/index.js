@@ -55,17 +55,17 @@ function addItemToDropdown(filterList, currentFilteredList, filterType) {
 // eslint-disable-next-line require-jsdoc
 function updateDropdowns(recipes) {
     // We get all the ingredients, appliances and utensils from the recipes
-    const {ingredients, appliances, ustensiles} = recipes.reduce((acc, recipe) => {
+    const {ingredients, appliances, ustensils} = recipes.reduce((acc, recipe) => {
         recipe.ingredients.forEach((ingredient) => acc.ingredients.add(ingredient.ingredient));
         acc.appliances.add(recipe.appliance);
-        recipe.ustensils.forEach((utensil) => acc.utensils.add(utensil));
+        recipe.ustensils.forEach((ustensil) => acc.ustensils.add(ustensil));
         return acc;
-    }, {ingredients: new Set(), appliances: new Set(), utensils: new Set()});
+    }, {ingredients: new Set(), appliances: new Set(), ustensils: new Set()});
 
     // We filter uniqueIngredients, uniqueAppliances and uniqueUtensils
     const uniqueIngredients = [...ingredients].filter((ingredient) => !currentFilteredIngredients.includes(ingredient));
     const uniqueAppliances = [...appliances].filter((appliance) => !currentFilteredAppliance.includes(appliance));
-    const uniqueUtensils = [...ustensiles].filter((utensil) => !currentFilteredUstensiles.includes(utensil));
+    const uniqueUtensils = [...ustensils].filter((ustensil) => !currentFilteredUstensiles.includes(ustensil));
 
     // Clear dropdowns
     ingredientList.innerHTML = '';
