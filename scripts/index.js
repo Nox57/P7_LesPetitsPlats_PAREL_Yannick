@@ -85,23 +85,10 @@ function updateDropdowns(recipes) {
  * @return {Array} List of recipes filtered by term.
  */
 function filterRecipesByTerm(recipes, searchTerm = '') {
-    const filteredRecipes = [];
-
-    for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
-        if (recipe.name.toLowerCase().includes(searchTerm) || recipe.description.toLowerCase().includes(searchTerm)) {
-            filteredRecipes.push(recipe);
-            continue;
-        }
-
-        for (let j = 0; j < recipe.ingredients.length; j++) {
-            const ingredient = recipe.ingredients[j].ingredient;
-            if (ingredient.toLowerCase().includes(searchTerm)) {
-                filteredRecipes.push(recipe);
-                break;
-            }
-        }
-    }
+    const filteredRecipes = recipes.filter((recipe) =>
+        recipe.name.toLowerCase().includes(searchTerm) || recipe.description.toLowerCase().includes(searchTerm) ||
+        recipe.ingredients.some((ingredient) => ingredient.ingredient.toLowerCase().includes(searchTerm)),
+    );
 
     return filteredRecipes;
 }
