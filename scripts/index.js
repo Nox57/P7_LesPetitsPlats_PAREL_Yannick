@@ -9,11 +9,11 @@ const formSearch = document.getElementById('formSearch');
 
 // Variables for recipe filtering
 const newRecipes = {list: []};
-const filterIngredients = [];
+const dropdownIngredients = [];
 const currentFilteredIngredients = [];
-const filterUstensiles = [];
+const dropdownUstensiles = [];
 const currentFilteredUstensiles = [];
-const filterAppliance = [];
+const dropdownAppliance = [];
 const currentFilteredAppliance = [];
 
 // We add each ingredient, appliance and ustensil in each dropdown
@@ -89,13 +89,7 @@ function filterRecipesByTerm(recipes, searchTerm = '') {
 
     for (let i = 0; i < recipes.length; i++) {
         const recipe = recipes[i];
-        console.log(recipe);
-        if (recipe.name.toLowerCase().includes(searchTerm)) {
-            filteredRecipes.push(recipe);
-            continue;
-        }
-
-        if (recipe.description.toLowerCase().includes(searchTerm)) {
+        if (recipe.name.toLowerCase().includes(searchTerm) || recipe.description.toLowerCase().includes(searchTerm)) {
             filteredRecipes.push(recipe);
             continue;
         }
@@ -129,7 +123,6 @@ function filterRecipesByTags(recipes) {
         filteredRecipes = filterRecipesByAppliances(filteredRecipes, currentFilteredAppliance);
     }
 
-    console.log(filteredRecipes);
     return filteredRecipes;
 }
 
@@ -166,7 +159,6 @@ function filterRecipesByAppliances(recipes, filters) {
 
 // eslint-disable-next-line require-jsdoc
 function displayRecipes(recipes) {
-    console.log(recipes);
     if (recipes.length === 0) {
         recipesDiv.innerHTML = '<div class="no_recipe">Aucune recette ne correspond à votre recherche ;(</div>';
     } else {
@@ -210,31 +202,31 @@ function init() {
         // We add each different ingredient in an array
         recipe.ingredients.forEach((ingredient) => {
             const ingredientName = ingredient.ingredient.toLowerCase();
-            if (!filterIngredients.some((ingredient) => ingredient.toLowerCase() === ingredientName)) {
-                filterIngredients.push(ingredient.ingredient);
+            if (!dropdownIngredients.some((ingredient) => ingredient.toLowerCase() === ingredientName)) {
+                dropdownIngredients.push(ingredient.ingredient);
             }
         });
         // We add each different ustensil in an array
         recipe.ustensils.forEach((ustensil) => {
             // filtersIngredients.push(ingredient.ingredient.toLowerCase());
             const ustensilName = ustensil.toLowerCase();
-            if (!filterUstensiles.some((ustensil) => ustensil.toLowerCase() === ustensilName)) {
-                filterUstensiles.push(ustensil);
+            if (!dropdownUstensiles.some((ustensil) => ustensil.toLowerCase() === ustensilName)) {
+                dropdownUstensiles.push(ustensil);
             }
         });
         // We add each different appliance in an array
         const applianceName = recipe.appliance.toLowerCase();
-        if (!filterAppliance.some((appliance) => appliance.toLowerCase() === applianceName)) {
-            filterAppliance.push(recipe.appliance);
+        if (!dropdownAppliance.some((appliance) => appliance.toLowerCase() === applianceName)) {
+            dropdownAppliance.push(recipe.appliance);
         }
 
         recipesDiv.insertAdjacentHTML('beforeend', newRecipes.list[newRecipes.list.length - 1].toHTML());
     });
 
     // We add each filters in each list
-    addItemToDropdown(filterIngredients, currentFilteredIngredients, ingredientList);
-    addItemToDropdown(filterAppliance, currentFilteredAppliance, applianceList);
-    addItemToDropdown(filterUstensiles, currentFilteredUstensiles, ustensilList);
+    addItemToDropdown(dropdownIngredients, currentFilteredIngredients, ingredientList);
+    addItemToDropdown(dropdownAppliance, currentFilteredAppliance, applianceList);
+    addItemToDropdown(dropdownUstensiles, currentFilteredUstensiles, ustensilList);
     // We handle each dropdown
     searchDropdownList('search-ingredient', ingredientList);
     searchDropdownList('search-appliance', applianceList);
