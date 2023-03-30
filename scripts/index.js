@@ -112,49 +112,48 @@ function filterRecipesByTags(recipes) {
     let filteredRecipes = recipes;
 
     if (currentFilteredIngredients.length > 0) {
-        filteredRecipes = filterRecipesByIngredients(filteredRecipes, currentFilteredIngredients);
+        filteredRecipes = filterRecipes(filteredRecipes, currentFilteredIngredients, 'ingredients');
     }
 
     if (currentFilteredUstensiles.length > 0) {
-        filteredRecipes = filterRecipesByUstensiles(filteredRecipes, currentFilteredUstensiles);
+        filteredRecipes = filterRecipes(filteredRecipes, currentFilteredUstensiles, 'ustensiles');
     }
 
     if (currentFilteredAppliance.length > 0) {
-        filteredRecipes = filterRecipesByAppliances(filteredRecipes, currentFilteredAppliance);
+        filteredRecipes = filterRecipes(filteredRecipes, currentFilteredAppliance, 'appliances');
     }
 
     return filteredRecipes;
 }
 
 // eslint-disable-next-line require-jsdoc
-function filterRecipesByIngredients(recipes, filters) {
-    return recipes.filter((recipe) =>
-        filters.every((filter) =>
-            recipe.ingredients.some((ingredient) =>
-                ingredient.ingredient.toLowerCase().includes(filter.toLowerCase()),
+function filterRecipes(recipes, filters, filterType) {
+    switch (filterType) {
+    case 'ingredients':
+        return recipes.filter((recipe) =>
+            filters.every((filter) =>
+                recipe.ingredients.some((ingredient) =>
+                    ingredient.ingredient.toLowerCase().includes(filter.toLowerCase()),
+                ),
             ),
-        ),
-    );
-}
-
-// eslint-disable-next-line require-jsdoc
-function filterRecipesByUstensiles(recipes, filters) {
-    return recipes.filter((recipe) =>
-        filters.every((filter) =>
-            recipe.ustensils.some((ustensil) =>
-                ustensil.toLowerCase().includes(filter.toLowerCase()),
+        );
+    case 'ustensiles':
+        return recipes.filter((recipe) =>
+            filters.every((filter) =>
+                recipe.ustensils.some((ustensil) =>
+                    ustensil.toLowerCase().includes(filter.toLowerCase()),
+                ),
             ),
-        ),
-    );
-}
-
-// eslint-disable-next-line require-jsdoc
-function filterRecipesByAppliances(recipes, filters) {
-    return recipes.filter((recipe) =>
-        filters.every((filter) =>
-            recipe.appliance.toLowerCase().includes(filter.toLowerCase()),
-        ),
-    );
+        );
+    case 'appliances':
+        return recipes.filter((recipe) =>
+            filters.every((filter) =>
+                recipe.appliance.toLowerCase().includes(filter.toLowerCase()),
+            ),
+        );
+    default:
+        return recipes;
+    }
 }
 
 // eslint-disable-next-line require-jsdoc
