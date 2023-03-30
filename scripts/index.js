@@ -79,7 +79,7 @@ function updateDropdowns(recipes) {
 }
 
 /**
- * Filter recipes by term.
+ * Filter recipes by term Algorithm-V1.
  * @param {Array} recipes List of recipes.
  * @param {string} searchTerm The search term.
  * @return {Array} List of recipes filtered by term.
